@@ -6,19 +6,19 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const mongoose = require('mongoose');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
 
-// connect to database
-const mongoose = require('mongoose');
-mongoose.set('strictQuery', false);
-const mongoDbUri = process.env.MONGODB_URI;
-const databaseName = process.env.DB_NAME;
-
 connectToDb().catch((err) => console.log(err));
+
 async function connectToDb() {
+  mongoose.set('strictQuery', false);
+  const mongoDbUri = process.env.MONGODB_URI;
+  const databaseName = process.env.DB_NAME;
   await mongoose.connect(mongoDbUri, { dbName: databaseName });
   console.log('Successfully connected to mongodb');
 }
