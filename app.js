@@ -14,11 +14,12 @@ const app = express();
 // connect to database
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-const mongodb = process.env.MONGODB_URI;
+const mongoDbUri = process.env.MONGODB_URI;
+const databaseName = process.env.DB_NAME;
 
 connectToDb().catch((err) => console.log(err));
 async function connectToDb() {
-  await mongoose.connect(mongodb);
+  await mongoose.connect(mongoDbUri, { dbName: databaseName });
   console.log('Successfully connected to mongodb');
 }
 
