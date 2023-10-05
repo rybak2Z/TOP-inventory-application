@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { body, validationResult } = require('express-validator');
 const Category = require('../models/category');
+const Stick = require('../models/stick');
 
 const router = express.Router();
 
@@ -16,6 +17,22 @@ function createNameValidationChain() {
     .isAlphanumeric()
     .withMessage('Description must only contain alphanumeric characters.');
 }
+
+router.get(
+  '/all',
+  asyncHandler(async (req, res, next) => {
+    const [allSticks, allCategories] = await Promise.all([
+      Stick.find({}).populate('category').exec(),
+      Category.find({}).exec(),
+    ]);
+
+    res.render('index', {
+      selectedCategoryId: 'all',
+      categories: allCategories,
+      sticks: allSticks,
+    });
+  }),
+);
 
 router.get(
   '/list',
@@ -46,6 +63,22 @@ router.post(
 
     await category.save();
     res.redirect('/category/list');
+  }),
+);
+
+router.get(
+  '/:id',
+  asyncHandler(async (req, res, next) => {
+    const [allSticksByCategoy, allCategories] = await Promise.all([
+      Stick.find({ category: req.params.id }).populate('category').exec(),
+      Category.find({}).exec(),
+    ]);
+
+    res.render('index', {
+      selectedCategoryId: req.params.id.toString(),
+      categories: allCategories,
+      sticks: allSticksByCategoy,
+    });
   }),
 );
 

@@ -7,8 +7,7 @@ const router = express.Router();
 router.get(
   '/',
   asyncHandler(async (req, res, next) => {
-    const allSticks = await Stick.find({}).populate('category').exec();
-    res.render('index', { sticks: allSticks });
+    res.redirect('/category/all');
   }),
 );
 
