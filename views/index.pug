@@ -2,15 +2,30 @@ extends layout
 
 block content
   main
-    p Category: All
-    ul
-      each stick in sticks
-        li 
-          div
-            a(href=stick.url) #{stick.name}
-            | 
-            | (#{stick.category.name})
-            | 
-            | $#{stick.price}
-      else
-        | No sticks in inventory.
+    if categories.length !== 0
+      label(for='category') Category
+      select#category
+        option(value='all' selected=(selectedCategoryId==='all')) All
+        each c in categories
+          option(value=c._id selected=(selectedCategoryId===c._id.toString())) #{c.name}
+      script
+        | const selectDropdown = document.querySelector('select');
+        | selectDropdown.addEventListener('change', (e) => {
+        |   const selectedOption = selectDropdown.selectedOptions[0];
+        |   const category = selectedOption.value.toString();
+        |   const newUrl = '/category/' + category;
+        |   window.location.href = newUrl;
+        | });
+      ul
+        each stick in sticks
+          li 
+            div
+              a(href=stick.url) #{stick.name}
+              | 
+              | (#{stick.category.name})
+              | 
+              | $#{stick.price}
+        else
+          | No sticks in this category.
+    else
+      | Inventory is empty.
