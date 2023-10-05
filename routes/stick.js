@@ -21,7 +21,9 @@ router.post(
 router.get(
   '/:id',
   asyncHandler(async (req, res, next) => {
-    const stick = await Stick.findById(req.params.id).exec();
+    const stick = await Stick.findById(req.params.id)
+      .populate('category')
+      .exec();
     res.render('stickDetails', { stick });
   }),
 );

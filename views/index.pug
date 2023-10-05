@@ -9,6 +9,8 @@ block content
           div
             a(href=stick.url) #{stick.name}
             | 
+            | (#{stick.category.name})
+            | 
             | $#{stick.price}
       else
         | No sticks in inventory.
