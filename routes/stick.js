@@ -1,20 +1,31 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const Stick = require('../models/stick');
+const Category = require('../models/category');
 
 const router = express.Router();
 
 router.get(
   '/create',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: GET Create stick page');
+    const allCategories = await Category.find({}).exec();
+    res.render('stickCreate', { categories: allCategories });
   }),
 );
 
 router.post(
   '/create',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: POST Create stick page');
+    const stick = new Stick({
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      has_image: false,
+    });
+
+    await stick.save();
+    res.redirect(stick.url);
   }),
 );
 
