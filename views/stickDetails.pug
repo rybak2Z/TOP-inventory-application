@@ -2,7 +2,9 @@ extends layout
 
 block content
   p Name: #{stick.name}
+  p Category: #{stick.category.name}
   p Price: #{stick.price}
+  p Description: #{stick.description}
   hr
   a(href=stick.url+'/update') Update stick details
   a(href=stick.url+'/delete') Delete stick
