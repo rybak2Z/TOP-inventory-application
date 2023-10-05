@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  main
+    h1 Add new category
+    form(method='POST' action='')
+      div
+        label(for='name') Name
+        input#name(type='text' name='name' required='true' value=(category===undefined ? '' : category.name))
+      button(type='submit') Submit
+
