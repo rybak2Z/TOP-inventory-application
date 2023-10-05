@@ -6,7 +6,7 @@ const router = express.Router();
 router.get(
   '/list',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: GET Manage categories page');
+    res.render('categoryList', { categories: [] });
   }),
 );
 
