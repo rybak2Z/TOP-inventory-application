@@ -9,7 +9,7 @@ router.get(
   '/create',
   asyncHandler(async (req, res, next) => {
     const allCategories = await Category.find({}).exec();
-    res.render('stickCreate', { categories: allCategories });
+    res.render('stickForm', { categories: allCategories });
   }),
 );
 
@@ -47,7 +47,7 @@ router.get(
       Category.find({}).exec(),
     ]);
 
-    res.render('stickCreate', { stick: stick, categories: allCategories });
+    res.render('stickForm', { stick: stick, categories: allCategories });
   }),
 );
 
@@ -75,14 +75,16 @@ router.post(
 router.get(
   '/:id/delete',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: GET Delete stick page');
+    const stick = await Stick.findById(req.params.id).exec();
+    res.render('stickDelete', { stick });
   }),
 );
 
 router.post(
   '/:id/delete',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: POST Delete stick page');
+    await Stick.findByIdAndRemove(req.body.stickId);
+    res.redirect('/');
   }),
 );
 
