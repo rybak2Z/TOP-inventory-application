@@ -15,14 +15,16 @@ router.get(
 router.get(
   '/create',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: GET Create category page');
+    res.render('categoryForm', {});
   }),
 );
 
 router.post(
   '/create',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: POST Create category page');
+    const category = new Category({ name: req.body.name });
+    await category.save();
+    res.redirect('/category/list');
   }),
 );
 
