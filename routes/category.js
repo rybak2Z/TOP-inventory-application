@@ -12,7 +12,9 @@ function createNameValidationChain() {
     .withMessage('Name must not be empty.')
     .escape()
     .isLength({ max: 100 })
-    .withMessage('Name must be at most 100 characters long.');
+    .withMessage('Name must be at most 100 characters long.')
+    .isAlphanumeric()
+    .withMessage('Description must only contain alphanumeric characters.');
 }
 
 router.get(
