@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  main
+    a(href='/category/create') New Category
+    ul
+      each category in categories
+        li
+          | #{category.name}
+          | 
+          a(href=category.url+'/update') Edit
+          | 
+          a(href=category.url+'/delete') Delete
+          hr
+      else
+        | There are no categories.
