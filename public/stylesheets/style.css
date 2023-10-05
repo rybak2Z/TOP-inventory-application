@@ -7,6 +7,11 @@ body {
     sans-serif;
 }
 
+header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 a {
   color: #00b7ff;
 }
