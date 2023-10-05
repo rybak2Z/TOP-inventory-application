@@ -1,12 +1,14 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
+const Category = require('../models/category');
 
 const router = express.Router();
 
 router.get(
   '/list',
   asyncHandler(async (req, res, next) => {
-    res.render('categoryList', { categories: [] });
+    const allCategories = await Category.find({}).exec();
+    res.render('categoryList', { categories: allCategories });
   }),
 );
 
