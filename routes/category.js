@@ -31,14 +31,21 @@ router.post(
 router.get(
   '/:id/update',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: GET Update category page');
+    const category = await Category.findById(req.params.id).exec();
+    res.render('categoryForm', { category });
   }),
 );
 
 router.post(
   '/:id/update',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: POST Update category page');
+    const category = new Category({
+      name: req.body.name,
+      _id: req.params.id,
+    });
+
+    await Category.findByIdAndUpdate(req.params.id, category, {});
+    res.redirect('/category/list');
   }),
 );
 
