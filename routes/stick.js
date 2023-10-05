@@ -42,14 +42,33 @@ router.get(
 router.get(
   '/:id/update',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: GET Update stick page');
+    const [stick, allCategories] = await Promise.all([
+      Stick.findById(req.params.id).populate('category').exec(),
+      Category.find({}).exec(),
+    ]);
+
+    res.render('stickCreate', { stick: stick, categories: allCategories });
   }),
 );
 
 router.post(
   '/:id/update',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: POST Update stick page');
+    const stick = new Stick({
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      has_image: false,
+      _id: req.params.id,
+    });
+
+    const updatedStick = await Stick.findByIdAndUpdate(
+      req.params.id,
+      stick,
+      {},
+    );
+    res.redirect(updatedStick.url);
   }),
 );
 
