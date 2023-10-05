@@ -1,5 +1,6 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
+const Stick = require('../models/stick');
 
 const router = express.Router();
 
@@ -20,7 +21,8 @@ router.post(
 router.get(
   '/:id',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: GET Stick details page');
+    const stick = await Stick.findById(req.params.id).exec();
+    res.render('stickDetails', { stick });
   }),
 );
 
