@@ -1,0 +1,9 @@
+extends layouts
+
+block content
+  p Name: #{stick.name}
+  p Price: #{stick.price}
+  hr
+  a(href=stick.url+'/update') Update stick details
+  a(href=stick.url+'/delete') Delete stick
+
