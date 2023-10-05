@@ -9,3 +9,7 @@ block content
         input#name(type='text' name='name' required='true' value=(category===undefined ? '' : category.name))
       button(type='submit') Submit
 
+    if errors
+     ul
+      for error in errors
+       li!= error.msg
