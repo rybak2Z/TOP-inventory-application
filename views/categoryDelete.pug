@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  p Are you sure you want to delete the category "#{category.name}"?
+  form(method='POST' action='')
+    input(type='hidden' name='categoryId' required='true' value=category._id)
+    button(type='submit') Yes, delete it
+  a(href='/category/list') No, keep it

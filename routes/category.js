@@ -52,14 +52,16 @@ router.post(
 router.get(
   '/:id/delete',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: GET Delete category page');
+    const category = await Category.findById(req.params.id).exec();
+    res.render('categoryDelete', { category });
   }),
 );
 
 router.post(
   '/:id/delete',
   asyncHandler(async (req, res, next) => {
-    res.send('Not implemented: POST Delete category page');
+    await Category.findByIdAndRemove(req.body.categoryId);
+    res.redirect('/category/list');
   }),
 );
 
