@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  main
+    p Category: All
+    ul
+      each stick in sticks
+        li 
+          div
+            a(href=stick.url) #{stick.name}
+            | 
+            | $#{stick.price}
+      else
+        | No sticks in inventory.
