@@ -1,8 +1,25 @@
 extends layout
 
 block content
-  p Are you sure you want to delete the category "#{category.name}"?
-  form(method='POST' action='')
-    input(type='hidden' name='categoryId' required='true' value=category._id)
-    button(type='submit') Yes, delete it
-  a(href='/category/list') No, keep it
+  if sticks.length === 0
+    p Are you sure you want to delete the category "#{category.name}"?
+    form(method='POST' action='')
+      input(type='hidden' name='categoryId' required='true' value=category._id)
+      button(type='submit') Yes, delete it
+    a(href='/category/list') No, keep it
+  else
+    p Please delete all sticks of this category (#{category.name}) before deleting it:
+    - 
+      sticks.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        } else if (a.name < b.name) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    ul
+      each stick of sticks
+        li 
+          a(href=stick.url) #{stick.name}

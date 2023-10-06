@@ -113,14 +113,25 @@ router.post(
 router.get(
   '/:id/delete',
   asyncHandler(async (req, res, next) => {
-    const category = await Category.findById(req.params.id).exec();
-    res.render('categoryDelete', { category });
+    const [category, allSticksByCategory] = await Promise.all([
+      Category.findById(req.params.id).exec(),
+      Stick.find({ category: req.params.id }).exec(),
+    ]);
+    res.render('categoryDelete', { category, sticks: allSticksByCategory });
   }),
 );
 
 router.post(
   '/:id/delete',
   asyncHandler(async (req, res, next) => {
+    const allSticksByCategory = await Stick.find({
+      category: req.params.id,
+    }).exec();
+    if (allSticksByCategory.length > 0) {
+      res.redirect(`/category/${req.params.id}/delete`);
+      return;
+    }
+
     await Category.findByIdAndRemove(req.body.categoryId);
     res.redirect('/category/list');
   }),
