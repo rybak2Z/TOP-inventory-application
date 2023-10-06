@@ -1,11 +1,14 @@
 extends layout
 
 block content
-  p Name: #{stick.name}
-  p Category: #{stick.category.name}
-  p Price: #{stick.price}
-  img(src=stick.image_url width='100')
-  hr
-  a(href=stick.url+'/update') Update stick details
-  a(href=stick.url+'/delete') Delete stick
+  div.stick-details.item(href=stick.url)
+    div
+      img(src=stick.image_url width='50')
+      div.stick-description
+        h1 #{stick.name}
+        h2 Category: #[a(href=stick.category.url) #{stick.category.name}]
+    span.stick-price #{stick.price}
+  div.update-delete-buttons
+    a.boxed(href=stick.url+'/update') Update stick details
+    a.boxed(href=stick.url+'/delete') Delete stick
 
