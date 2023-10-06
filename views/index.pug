@@ -1,52 +1,51 @@
 extends layout
 
 block content
-  main
-    if categories.length !== 0
-      label(for='category') Category
-      select#category
-        option(value='all' selected=(selectedCategoryId==='all')) All
-        - 
-          categories.sort((a, b) => {
-            if (a.name > b.name) {
-              return 1;
-            } else if (a.name < b.name) {
-              return -1;
-            } else {
-              return 0;
-            }
-          });
-        each c in categories
-          option(value=c._id selected=(selectedCategoryId===c._id.toString())) #{c.name}
-      script
-        | const selectDropdown = document.querySelector('select');
-        | selectDropdown.addEventListener('change', (e) => {
-        |   const selectedOption = selectDropdown.selectedOptions[0];
-        |   const category = selectedOption.value.toString();
-        |   const newUrl = '/category/' + category;
-        |   window.location.href = newUrl;
-        | });
-      ul
-        - 
-          sticks.sort((a, b) => {
-            if (a.name > b.name) {
-              return 1;
-            } else if (a.name < b.name) {
-              return -1;
-            } else {
-              return 0;
-            }
-          });
-        each stick in sticks
-          li 
-            div
-              a(href=stick.url) #{stick.name}
-              | 
-              | (#{stick.category.name})
-              | 
-              | $#{stick.price}
-              img(src=stick.image_url width='50')
-        else
-          | No sticks in this category.
-    else
-      | Inventory is empty.
+  if categories.length !== 0
+    label(for='category') Category
+    select#category
+      option(value='all' selected=(selectedCategoryId==='all')) All
+      - 
+        categories.sort((a, b) => {
+          if (a.name > b.name) {
+            return 1;
+          } else if (a.name < b.name) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+      each c in categories
+        option(value=c._id selected=(selectedCategoryId===c._id.toString())) #{c.name}
+    script
+      | const selectDropdown = document.querySelector('select');
+      | selectDropdown.addEventListener('change', (e) => {
+      |   const selectedOption = selectDropdown.selectedOptions[0];
+      |   const category = selectedOption.value.toString();
+      |   const newUrl = '/category/' + category;
+      |   window.location.href = newUrl;
+      | });
+    ul
+      - 
+        sticks.sort((a, b) => {
+          if (a.name > b.name) {
+            return 1;
+          } else if (a.name < b.name) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+      each stick in sticks
+        li 
+          div
+            a(href=stick.url) #{stick.name}
+            | 
+            | (#{stick.category.name})
+            | 
+            | $#{stick.price}
+            img(src=stick.image_url width='50')
+      else
+        | No sticks in this category.
+  else
+    | Inventory is empty.
