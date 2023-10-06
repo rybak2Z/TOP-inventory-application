@@ -7,7 +7,7 @@ const StickSchema = new Schema({
   description: { type: String, required: true, maxLength: 200 },
   category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
   price: { type: Number, min: 0 },
-  has_image: Boolean,
+  image_file_name: String,
 });
 
 StickSchema.virtual('url').get(function () {
@@ -15,8 +15,8 @@ StickSchema.virtual('url').get(function () {
 });
 
 StickSchema.virtual('image_url').get(function () {
-  return this.has_image
-    ? `/images/${this._id}.webp`
+  return this.image_file_name
+    ? `/images/${this.image_file_name}`
     : '/images/placeholder.webp';
 });
 

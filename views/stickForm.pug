@@ -3,7 +3,7 @@ extends layout
 block content
   main
     h1 Add new stick
-    form(method='POST' action='')
+    form(method='POST' action='' enctype='multipart/form-data')
       div
         label(for='name') Name
         input#name(type='text' name='name' required='true' value=(stick===undefined ? '' : stick.name))
@@ -23,7 +23,20 @@ block content
       div
         label(for='price') Price
         input#price(type='number' name='price' required='true' min='0' value=(stick===undefined ? '0' : stick.price))
+      div
+        label(for='image') Image
+        input#image(type='file' name='image' accept='.webp')
       button(type='submit') Submit
+    img(src=(stick===undefined ? '/images/placeholder.webp' : stick.image_url) width='100')
+    script
+      | const imageElement = document.querySelector('img');
+      | const fileInputElement = document.querySelector('#image');
+      | fileInputElement.addEventListener('input', (event) => {
+      |   const [imgFile] = fileInputElement.files;
+      |   if (imgFile) {
+      |     imageElement.src = URL.createObjectURL(imgFile);
+      |   } 
+      | });
 
     if errors
      ul
