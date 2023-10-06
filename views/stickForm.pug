@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  h1 Add new stick
+  form(method='POST' action='' enctype='multipart/form-data')
+    div.form-group.boxed
+      label(for='name') Name
+      input#name.boxed(type='text' name='name' required='true' value=(stick===undefined ? '' : stick.name))
+    div.form-group.boxed
+      label(for='category') Category
+      select#category.boxed(required='true' name='category')
+        - categories.sort((a, b) => a.name > b.name ? 1 : (a.name < b.name ? -1 : 0));
+        for c in categories
+          if stick
+            - const isSelected = c._id.toString() === stick.category._id.toString();
+            option(value=c._id selected=isSelected) #{c.name}
+          else
+            option(value=c._id) #{c.name}
+    div.form-group.boxed
+      label(for='price') Price
+      input#price.boxed(type='number' name='price' required='true' min='0' value=(stick===undefined ? '0' : stick.price))
+    div.form-group.boxed.image-selection
+      label(for='image') Image
+      div.boxed
+        img(src=(stick===undefined ? '/images/placeholder.webp' : stick.image_url) width='100')
+        input#image(type='file' name='image' accept='.webp')
+    button(type='submit') Submit
+  script
+    | const imageElement = document.querySelector('img');
+    | const fileInputElement = document.querySelector('#image');
+    | fileInputElement.addEventListener('input', (event) => {
+    |   const [imgFile] = fileInputElement.files;
+    |   if (imgFile) {
+    |     imageElement.src = URL.createObjectURL(imgFile);
+    |   } 
+    | });
+
+  if errors
+   ul
+    for error in errors
+     li!= error.msg
+

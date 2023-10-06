@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  if sticks.length === 0
+    form.delete-form(method='POST' action='')
+      h1 Are you sure you want to delete the category "#{category.name}"?
+      input(type='hidden' name='categoryId' required='true' value=category._id)
+      div
+        button(type='submit') Yes, delete it
+        a.boxed(href='/category/list') No, keep it
+  else
+    h1 Please delete all sticks of this category (#{category.name}) before deleting it:
+    - 
+      sticks.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        } else if (a.name < b.name) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    ul
+      each stick of sticks
+        li 
+          a.boxed(href=stick.url) #{stick.name}

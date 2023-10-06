@@ -1,9 +1,14 @@
 const express = require('express');
+const asyncHandler = require('express-async-handler');
+const Stick = require('../models/stick');
+
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get(
+  '/',
+  asyncHandler(async (req, res, next) => {
+    res.redirect('/category/all');
+  }),
+);
 
 module.exports = router;

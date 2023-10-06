@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  form.delete-form(method='POST' action='')
+    h1 Are you sure you want to delete the stick "#{stick.name}"?
+    input(type='hidden' name='stickId' required='true' value=stick._id)
+    div
+      button(type='submit') Yes, delete it
+      a.boxed(href=stick.url) No, keep it

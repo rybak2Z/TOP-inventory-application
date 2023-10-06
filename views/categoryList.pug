@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  a#new-category(href='/category/create') New category
+  ul
+    - 
+      categories.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        } else if (a.name < b.name) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    each category in categories
+      li.boxed.category
+        | #{category.name}
+        div
+          a(href=category.url+'/update') Edit
+          a(href=category.url+'/delete') Delete
+    else
+      | There are no categories.
