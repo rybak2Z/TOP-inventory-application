@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  p Are you sure you want to delete the stick "#{stick.name}"?
-  form(method='POST' action='')
+  form.delete-form(method='POST' action='')
+    h1 Are you sure you want to delete the stick "#{stick.name}"?
     input(type='hidden' name='stickId' required='true' value=stick._id)
-    button(type='submit') Yes, delete it
-  a(href=stick.url) No, keep it
+    div
+      button(type='submit') Yes, delete it
+      a.boxed(href=stick.url) No, keep it
