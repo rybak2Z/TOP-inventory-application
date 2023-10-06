@@ -69,7 +69,7 @@ router.post(
 router.get(
   '/:id',
   asyncHandler(async (req, res, next) => {
-    const [allSticksByCategoy, allCategories] = await Promise.all([
+    const [allSticksByCategory, allCategories] = await Promise.all([
       Stick.find({ category: req.params.id }).populate('category').exec(),
       Category.find({}).exec(),
     ]);
@@ -77,7 +77,7 @@ router.get(
     res.render('index', {
       selectedCategoryId: req.params.id.toString(),
       categories: allCategories,
-      sticks: allSticksByCategoy,
+      sticks: allSticksByCategory,
     });
   }),
 );
