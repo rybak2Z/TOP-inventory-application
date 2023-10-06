@@ -66,11 +66,13 @@ router.post(
     if (!errors.isEmpty()) {
       // Delete image because request was invalid (I can't figure out how
       // to upload file only after the request has been validated)
-      fs.unlink(req.file.path, (err) => {
-        if (err) {
-          throw err;
-        }
-      });
+      if (req.file) {
+        fs.unlink(req.file.path, (err) => {
+          if (err) {
+            throw err;
+          }
+        });
+      }
 
       const allCategories = await Category.find({}).exec();
       res.render('stickForm', {
