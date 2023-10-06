@@ -28,15 +28,6 @@ function createStickFormValidationChains() {
       .withMessage('Name must be at most 100 characters long.')
       .isAlphanumeric()
       .withMessage('Name must only contain alphanumeric characters.'),
-    body('description')
-      .trim()
-      .isLength({ min: 1 })
-      .withMessage('Description must not be empty.')
-      .escape()
-      .isLength({ max: 200 })
-      .withMessage('Description must be at most 200 characters long.')
-      .isAlphanumeric()
-      .withMessage('Description must only contain alphanumeric characters.'),
     body('category').custom(async (categoryId) => {
       const allCategories = await Category.find({}).select('_id').exec();
       for (const category of allCategories) {
@@ -66,7 +57,6 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const stick = new Stick({
       name: req.body.name,
-      description: req.body.description,
       category: req.body.category,
       price: req.body.price,
       image_file_name: req.file ? req.file.filename : undefined,
@@ -139,7 +129,6 @@ router.post(
 
     const stick = new Stick({
       name: req.body.name,
-      description: req.body.description,
       category: req.body.category,
       price: req.body.price,
       image_file_name: new_file_name,

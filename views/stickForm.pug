@@ -8,9 +8,6 @@ block content
         label(for='name') Name
         input#name(type='text' name='name' required='true' value=(stick===undefined ? '' : stick.name))
       div
-        label(for='description') Description
-        input#description(type='text' name='description' required='true' value=(stick===undefined ? '' : stick.description))
-      div
         label(for='category') Category
         select#category(required='true' name='category')
           - categories.sort((a, b) => a.name > b.name ? 1 : (a.name < b.name ? -1 : 0));

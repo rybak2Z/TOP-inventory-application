@@ -30,17 +30,9 @@ async function connectToDb() {
   console.log('Connected.');
 }
 
-async function createSingleStick(
-  name,
-  description,
-  category,
-  price,
-  has_image,
-) {
-  if (!category) console.log('scheise');
+async function createSingleStick(name, category, price, has_image) {
   const stick = new Stick({
     name,
-    description,
     category,
     price,
     has_image,
@@ -61,55 +53,13 @@ async function createSingleCategory(index, name) {
 async function createSticks() {
   console.log('Creating sticks...');
   await Promise.all([
-    createSingleStick(
-      'Stick gun #1',
-      'Gun description #1',
-      categories[0],
-      5,
-      false,
-    ),
-    createSingleStick(
-      'Stick gun #2',
-      'Gun description #2',
-      categories[0],
-      7,
-      false,
-    ),
-    createSingleStick(
-      'Stick rifle #1',
-      'Rifle description #1',
-      categories[1],
-      15,
-      false,
-    ),
-    createSingleStick(
-      'Stick rifle #2',
-      'Rifle description #2',
-      categories[1],
-      12,
-      false,
-    ),
-    createSingleStick(
-      'Stick sword #1',
-      'Sword description #1',
-      categories[2],
-      20,
-      false,
-    ),
-    createSingleStick(
-      'Stick dagger #1',
-      'Dagger description #1',
-      categories[3],
-      5,
-      false,
-    ),
-    createSingleStick(
-      'Stick other #1',
-      'Other description #1',
-      categories[4],
-      10,
-      false,
-    ),
+    createSingleStick('Stick gun #1', categories[0], 5, false),
+    createSingleStick('Stick gun #2', categories[0], 7, false),
+    createSingleStick('Stick rifle #1', categories[1], 15, false),
+    createSingleStick('Stick rifle #2', categories[1], 12, false),
+    createSingleStick('Stick sword #1', categories[2], 20, false),
+    createSingleStick('Stick dagger #1', categories[3], 5, false),
+    createSingleStick('Stick other #1', categories[4], 10, false),
   ]);
 }
 
