@@ -30,12 +30,12 @@ async function connectToDb() {
   console.log('Connected.');
 }
 
-async function createSingleStick(name, category, price, has_image) {
+async function createSingleStick(name, category, price, image_file_name) {
   const stick = new Stick({
     name,
     category,
     price,
-    has_image,
+    image_file_name,
   });
   await stick.save();
   console.log(`Created stick ${name}`);
@@ -53,23 +53,32 @@ async function createSingleCategory(index, name) {
 async function createSticks() {
   console.log('Creating sticks...');
   await Promise.all([
-    createSingleStick('Stick gun #1', categories[0], 5, false),
-    createSingleStick('Stick gun #2', categories[0], 7, false),
-    createSingleStick('Stick rifle #1', categories[1], 15, false),
-    createSingleStick('Stick rifle #2', categories[1], 12, false),
-    createSingleStick('Stick sword #1', categories[2], 20, false),
-    createSingleStick('Stick dagger #1', categories[3], 5, false),
-    createSingleStick('Stick other #1', categories[4], 10, false),
+    createSingleStick('Pistol 1', categories[0], 50, 'pistol1-0.webp'),
+    createSingleStick('Pistol 2', categories[0], 35, 'pistol2-0.webp'),
+    createSingleStick('Pistol 3', categories[0], 60, 'pistol3-0.webp'),
+    createSingleStick('Sword 1', categories[1], 110, 'sword1-0.webp'),
+    createSingleStick('Sword 2', categories[1], 90, 'sword2-0.webp'),
+    createSingleStick('Sword 3', categories[1], 130, 'sword3-0.webp'),
+    createSingleStick('Straight 1', categories[2], 20, 'straight1-0.webp'),
+    createSingleStick('Straight 2', categories[2], 15, 'straight2-0.webp'),
+    createSingleStick(
+      'Machine Pistol',
+      categories[3],
+      100,
+      'machine-pistol1-0.webp',
+    ),
+    createSingleStick('Musket', categories[3], 150, 'musket1-0.webp'),
+    createSingleStick('Revolver', categories[3], 70, 'revolver1-0.webp'),
+    createSingleStick('Shotgun', categories[3], 110, 'shotgun1-0.webp'),
   ]);
 }
 
 async function createCategories() {
   console.log('Creating categories...');
   await Promise.all([
-    createSingleCategory(0, 'Guns'),
-    createSingleCategory(1, 'Rifles'),
-    createSingleCategory(2, 'Swords'),
-    createSingleCategory(3, 'Daggers'),
-    createSingleCategory(4, 'Other'),
+    createSingleCategory(0, 'Pistols'),
+    createSingleCategory(1, 'Swords'),
+    createSingleCategory(2, 'Straight Sticks'),
+    createSingleCategory(3, 'Other'),
   ]);
 }
