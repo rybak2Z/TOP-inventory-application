@@ -3,12 +3,12 @@ extends layout
 block content
   h1 Add new stick
   form(method='POST' action='' enctype='multipart/form-data')
-    div
+    div.form-group.boxed
       label(for='name') Name
-      input#name(type='text' name='name' required='true' value=(stick===undefined ? '' : stick.name))
-    div
+      input#name.boxed(type='text' name='name' required='true' value=(stick===undefined ? '' : stick.name))
+    div.form-group.boxed
       label(for='category') Category
-      select#category(required='true' name='category')
+      select#category.boxed(required='true' name='category')
         - categories.sort((a, b) => a.name > b.name ? 1 : (a.name < b.name ? -1 : 0));
         for c in categories
           if stick
@@ -16,14 +16,15 @@ block content
             option(value=c._id selected=isSelected) #{c.name}
           else
             option(value=c._id) #{c.name}
-    div
+    div.form-group.boxed
       label(for='price') Price
-      input#price(type='number' name='price' required='true' min='0' value=(stick===undefined ? '0' : stick.price))
-    div
+      input#price.boxed(type='number' name='price' required='true' min='0' value=(stick===undefined ? '0' : stick.price))
+    div.form-group.boxed.image-selection
       label(for='image') Image
-      input#image(type='file' name='image' accept='.webp')
+      div.boxed
+        img(src=(stick===undefined ? '/images/placeholder.webp' : stick.image_url) width='100')
+        input#image(type='file' name='image' accept='.webp')
     button(type='submit') Submit
-  img(src=(stick===undefined ? '/images/placeholder.webp' : stick.image_url) width='100')
   script
     | const imageElement = document.querySelector('img');
     | const fileInputElement = document.querySelector('#image');
