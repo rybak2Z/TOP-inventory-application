@@ -100,6 +100,41 @@ a.boxed:hover {
   margin-bottom: 0.8rem;
 }
 
+#new-category {
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 1.3rem;
+  padding: 1rem;
+  display: block;
+  width: 100%;
+  outline: 2px solid #00b7ff;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+
+  &::before {
+    content: '+ ';
+  }
+
+  &:hover {
+    background-color: hsl(0 0% 0% / 0.1);
+  }
+}
+
+.category {
+  justify-content: space-between;
+  padding-left: 25%;
+  padding-right: 25%;
+  font-size: 1.3rem;
+
+  & a {
+    padding-left: 1.5rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .delete-form div {
   display: flex;
   justify-content: center;

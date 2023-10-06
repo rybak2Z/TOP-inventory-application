@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  a(href='/category/create') New Category
+  a#new-category(href='/category/create') New category
   ul
     - 
       categories.sort((a, b) => {
@@ -14,12 +14,10 @@ block content
         }
       });
     each category in categories
-      li
+      li.boxed.category
         | #{category.name}
-        | 
-        a(href=category.url+'/update') Edit
-        | 
-        a(href=category.url+'/delete') Delete
-        hr
+        div
+          a(href=category.url+'/update') Edit
+          a(href=category.url+'/delete') Delete
     else
       | There are no categories.
