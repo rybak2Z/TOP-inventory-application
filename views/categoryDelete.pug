@@ -2,13 +2,14 @@ extends layout
 
 block content
   if sticks.length === 0
-    p Are you sure you want to delete the category "#{category.name}"?
-    form(method='POST' action='')
+    form.delete-form(method='POST' action='')
+      h1 Are you sure you want to delete the category "#{category.name}"?
       input(type='hidden' name='categoryId' required='true' value=category._id)
-      button(type='submit') Yes, delete it
-    a(href='/category/list') No, keep it
+      div
+        button(type='submit') Yes, delete it
+        a.boxed(href='/category/list') No, keep it
   else
-    p Please delete all sticks of this category (#{category.name}) before deleting it:
+    h1 Please delete all sticks of this category (#{category.name}) before deleting it:
     - 
       sticks.sort((a, b) => {
         if (a.name > b.name) {
@@ -22,4 +23,4 @@ block content
     ul
       each stick of sticks
         li 
-          a(href=stick.url) #{stick.name}
+          a.boxed(href=stick.url) #{stick.name}
